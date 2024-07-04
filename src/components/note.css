@@ -1,0 +1,31 @@
+div.note {
+  border: 1px solid #FFF;
+  border-radius: 16px;
+  margin: 16px;
+}
+  
+div.note:hover, div.note:hover .noteArea {
+  background-color: #525356;
+  transition: 0.3s;
+}
+  
+textarea.noteArea {
+  background-color: #202124;
+  color: #FFF;
+  resize: none;
+  border: none;
+  border-radius: 16px;
+  padding: 10px;
+  width: 250px;
+  height: 200px;
+  outline: none;
+}
+
+.noteArea:focus, .note:has(.noteArea:focus) {
+  background-color: #525356;
+} 
+  
+.noteButtonContainer {
+  border-radius: 16px;
+  margin: 5px;
+}
