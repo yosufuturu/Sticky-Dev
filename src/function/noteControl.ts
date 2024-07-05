@@ -1,6 +1,16 @@
 
 import { noteParam } from "../types";
 
+export function changePinState (index: number,
+                                userNotesList: Array<noteParam>,
+                                setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
+){
+    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
+    nextUserNotesList[index].pinState = !nextUserNotesList[index].pinState;
+    setUserNotesList(nextUserNotesList);
+    saveNotesList(JSON.stringify(nextUserNotesList));
+}
+
 export function addNote(value: string,
         userNotesList: Array<noteParam>,
         setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
@@ -46,7 +56,7 @@ export function getNotesList() {
 const initData: Array<noteParam> = [
     {
         id: 0,
-        text: "Wellcome to StickyNotes",
+        text: "Welcome to StickyNotes",
         pinState: true,
         date: new Date()
     },
