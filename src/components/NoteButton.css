@@ -10,7 +10,7 @@ button.noteBtn {
   margin: 0 4px;
 }
 
-button.pinBtn:hover {
+button.pinBtn:hover, .noteBtn.pinBtn.pinState-true {
   background-color: #298e19;
 }
 button.copyBtn:hover {
