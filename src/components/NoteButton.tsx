@@ -1,5 +1,5 @@
 import { noteParam } from './../types'
-import { saveNotesList } from '../function/noteControl'
+import { changePinState, saveNotesList } from '../function/noteControl'
 import pinImg from './assets/pin.svg'
 import copyImg from './assets/copy.svg'
 import dustImg from './assets/dustbox.svg'
@@ -12,16 +12,9 @@ export const PinBtn = ({index, userNotesList, setUserNotesList}:
         setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
     }) => {
 
-    const changePinState = (i: number) => {
-        const nextUserNotesList: Array<noteParam> = userNotesList.slice();
-        nextUserNotesList[i].pinState = !nextUserNotesList[i].pinState;
-        saveNotesList(JSON.stringify(nextUserNotesList));
-        setUserNotesList(nextUserNotesList);
-    }
-
     return(
         <button className={`noteBtn pinBtn pinState-${userNotesList[index].pinState}`} 
-        onClick={()=>{changePinState(index)}}>
+        onClick={()=>{changePinState(index, userNotesList, setUserNotesList)}}>
             <img src={pinImg} className='pinIcon ButtonIcon' />
         </button>
     );
