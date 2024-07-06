@@ -15,7 +15,7 @@ export const Note = ({userNotesList, setUserNotesList}:
             <textarea className='noteArea' defaultValue={e.text}></textarea>
             <div className='noteButtonContainer'>
                 <PinBtn index={i} userNotesList={userNotesList} setUserNotesList={setUserNotesList} />
-                <CopyBtn />
+                <CopyBtn index={i} userNotesList={userNotesList} setUserNotesList={setUserNotesList} />
                 <DustBtn index={i} userNotesList={userNotesList} setUserNotesList={setUserNotesList} />
             </div>
         </div>

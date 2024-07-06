@@ -1,6 +1,13 @@
 
 import { noteParam } from "../types";
 
+export function copyNote(index: number,
+                        userNotesList: Array<noteParam>,
+                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
+){
+    addNote(userNotesList[index].text, userNotesList, setUserNotesList);
+}
+
 export function changePinState (index: number,
                                 userNotesList: Array<noteParam>,
                                 setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
@@ -12,8 +19,8 @@ export function changePinState (index: number,
 }
 
 export function addNote(value: string,
-        userNotesList: Array<noteParam>,
-        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
+                        userNotesList: Array<noteParam>,
+                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
 ){
         // create new note 
         const newNote :noteParam = {
