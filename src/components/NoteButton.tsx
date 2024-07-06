@@ -1,5 +1,5 @@
 import { noteParam } from './../types'
-import { changePinState, saveNotesList, copyNote } from '../function/noteControl'
+import { changePinState, saveNotesList, copyNote, eraseNote } from '../function/noteControl'
 import pinImg from './assets/pin.svg'
 import copyImg from './assets/copy.svg'
 import dustImg from './assets/dustbox.svg'
@@ -25,8 +25,7 @@ export const CopyBtn = ({index, userNotesList, setUserNotesList}:
         index: number
         userNotesList: Array<noteParam>,
         setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-    }) => {
-    
+    }) => { 
 
     return(
         <button className={`noteBtn copyBtn`}
@@ -42,17 +41,10 @@ export const DustBtn = ({index, userNotesList, setUserNotesList}:
         userNotesList: Array<noteParam>,
         setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
     }) => {
-    
-        const eraseNote = (i: number) => {
-            const nextUserNotesList: Array<noteParam> = userNotesList.slice();
-            nextUserNotesList.splice(i, 1);
-            saveNotesList(JSON.stringify(nextUserNotesList));
-            setUserNotesList(nextUserNotesList);
-        }
 
     return(
         <button className={`noteBtn dustBtn`} 
-        onClick={()=>{eraseNote(index)}} >
+        onClick={()=>{eraseNote(index, userNotesList, setUserNotesList)}} >
             <img src={dustImg} className='dustIcon ButtonIcon' />
         </button>
     );
