@@ -14,7 +14,7 @@ export const AddNoteContainer = ({userNotesList, setUserNotesList}:
     return (<>
 
         <div className="addNoteContainer">
-          <input className="addInputText" value={inputText}
+          <input type='text' className="addInputText" value={inputText}
           onChange={(e)=>{setInputText(e.target.value)}}
           placeholder="What would you add?" />
 
