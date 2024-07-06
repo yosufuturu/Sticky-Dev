@@ -1,6 +1,19 @@
 
 import { noteParam } from "../types";
 
+export function editNote(text:string,
+                        index:number,
+                        userNotesList: Array<noteParam>,
+                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
+){
+    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
+    nextUserNotesList[index].text = text;
+    setUserNotesList(nextUserNotesList);
+
+    // save list data
+    saveNotesList(JSON.stringify(nextUserNotesList));
+}
+
 export function copyNote(index: number,
                         userNotesList: Array<noteParam>,
                         setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
@@ -15,6 +28,8 @@ export function changePinState (index: number,
     const nextUserNotesList: Array<noteParam> = userNotesList.slice();
     nextUserNotesList[index].pinState = !nextUserNotesList[index].pinState;
     setUserNotesList(nextUserNotesList);
+
+    // save list data
     saveNotesList(JSON.stringify(nextUserNotesList));
 }
 
