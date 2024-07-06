@@ -51,7 +51,19 @@ export function addNote(value: string,
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
 
-    }
+}
+
+export function eraseNote(index: number,
+                        userNotesList: Array<noteParam>,
+                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
+){
+    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
+    nextUserNotesList.splice(index, 1);
+    // update notes list Hooks
+    setUserNotesList(nextUserNotesList);
+    // save list data
+    saveNotesList(JSON.stringify(nextUserNotesList));
+}
     
 export function saveNotesList(saveData: string) {
         
