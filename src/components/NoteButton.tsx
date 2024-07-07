@@ -1,5 +1,5 @@
 import { noteParam } from './../types'
-import { changePinState, saveNotesList, copyNote, eraseNote } from '../function/noteControl'
+import { changePinState, copyNote, eraseNote } from '../function/noteControl'
 import pinImg from './assets/pin.svg'
 import copyImg from './assets/copy.svg'
 import dustImg from './assets/dustbox.svg'
