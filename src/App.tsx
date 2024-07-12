@@ -1,13 +1,12 @@
-import { Header } from './components/Header';
-import { NoteBoard } from './components/NoteBoard';
+import React from 'react';
+import { Top } from './pages/Top';
 import './App.css'
 
 function App() {
 
-  return (
+    return (
     <>
-      <Header />
-      <NoteBoard />
+        <Top />
     </>
   )
 }
