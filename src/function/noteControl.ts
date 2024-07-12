@@ -1,42 +1,118 @@
+import { useState, useEffect } from "react";
+import { editFunc, noteParam, updateNotesFunc } from "../types";
 
-import { noteParam } from "../types";
+export function noteControl () {
+    
+    // noteControl state
+    const [userNotesList, setUserNotesList] = useState<noteParam[]>([]);
+    const [showList, setShowList] = useState<noteParam[]>([]);
+    const [searchWord, setSearchWord] = useState<string>('');
+    
+    const updateUserNotesList: updateNotesFunc = (notesList: noteParam[]) => {
+        setUserNotesList(notesList)
+    }
 
-export function editNote(text:string,
-                        index:number,
-                        userNotesList: Array<noteParam>,
-                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-){
-    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
-    nextUserNotesList[index].text = text;
-    setUserNotesList(nextUserNotesList);
+    // update to show notes list
+    const updateShowList: updateNotesFunc = (newShowList: noteParam[]) => {
+        setShowList(newShowList);
+    }
 
-    // save list data
-    saveNotesList(JSON.stringify(nextUserNotesList));
-}
+    const updateSearchWord = (word: string) => {
+        setSearchWord(word);
+    }
 
-export function copyNote(index: number,
-                        userNotesList: Array<noteParam>,
-                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-){
-    addNote(userNotesList[index].text, userNotesList, setUserNotesList);
-}
+    useEffect(()=>{
+        updateUserNotesList(initData);
+    },[]);
+    
+    useEffect(()=>{
+        updateShowList(userNotesList);
+    },[userNotesList]);
+    
+    // useEffect(()=>{
+    //     console.log('test1');
+    //     console.log(userNotesList);
+    // },[userNotesList]);
+    
+    // useEffect(()=>{
+    //     console.log('test2');
+    //     console.log(showList);
+    // },[showList]);
 
-export function changePinState (index: number,
-                                userNotesList: Array<noteParam>,
-                                setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-){
-    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
-    nextUserNotesList[index].pinState = !nextUserNotesList[index].pinState;
-    setUserNotesList(nextUserNotesList);
 
-    // save list data
-    saveNotesList(JSON.stringify(nextUserNotesList));
-}
+/******************************************************************************
+ * function: editNote
+ * argument: text:string,
+             index:number,
+             userNotesList: noteParam[],
+             updateUserNotesList: updateNotesFunc
+ ******************************************************************************/
+    const editNote: editFunc = (
+        text:string,
+        index:number,
+        userNotesList: noteParam[],
+        updateUserNotesList: updateNotesFunc
+    ) =>{
+        const nextUserNotesList: noteParam[] = userNotesList.slice();
+        nextUserNotesList[index].text = text;
+        updateUserNotesList(nextUserNotesList);
 
-export function addNote(value: string,
-                        userNotesList: Array<noteParam>,
-                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-){
+        // save list data
+        saveNotesList(JSON.stringify(nextUserNotesList));
+    }
+/******************************************************************************
+ * end of editNote function
+ ******************************************************************************/
+
+
+
+    function copyNote(
+        id: number,
+        userNotesList: noteParam[],
+        updateUserNotesList: updateNotesFunc
+    ){
+        const noteValue: noteParam | undefined = userNotesList.find((e)=>e.id===id);
+        if (undefined === noteValue) return;
+        addNote(noteValue.text, userNotesList, updateUserNotesList);
+    }
+/*** end of copyNote function ************************************************/
+
+    function changePinState (
+        id: number,
+        userNotesList: noteParam[],
+        updateUserNotesList: updateNotesFunc
+    ){
+        const index: number = userNotesList.findIndex((e)=>e.id===id);
+        const nextUserNotesList: noteParam[] = userNotesList.slice();
+        nextUserNotesList[index].pinState = !nextUserNotesList[index].pinState;
+        updateUserNotesList(nextUserNotesList);
+
+        // save list data
+        saveNotesList(JSON.stringify(nextUserNotesList));
+    }  /*** end of changePinState function ***********************************/
+
+    function eraseNote(
+        id: number,
+        userNotesList: noteParam[],
+        updateUserNotesList: updateNotesFunc
+    ){
+        // const index: number = userNotesList.findIndex((e)=>e.id===id);
+        const nextUserNotesList: noteParam[] = userNotesList.filter((e)=>e.id!==id);
+        // update notes list Hooks
+        updateUserNotesList(nextUserNotesList);
+
+        // save list data
+        saveNotesList(JSON.stringify(nextUserNotesList));
+
+    }  /*** end of eraseNote function ****************************************/
+
+
+
+    function addNote(
+        value: string,
+        userNotesList: noteParam[],
+        updateUserNotesList: updateNotesFunc
+    ){
         // create new note 
         const newNote :noteParam = {
             id: userNotesList.length,
@@ -45,25 +121,32 @@ export function addNote(value: string,
             date: new Date()
         };
 
-        const nextUserNotesList: Array<noteParam> = [...userNotesList, newNote];
-        setUserNotesList(nextUserNotesList);
+        const nextUserNotesList: noteParam[] = [...userNotesList, newNote];
+        updateUserNotesList(nextUserNotesList);
 
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
 
-}
+    }  /*** end of addNote function ******************************************/
 
-export function eraseNote(index: number,
-                        userNotesList: Array<noteParam>,
-                        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-){
-    const nextUserNotesList: Array<noteParam> = userNotesList.slice();
-    nextUserNotesList.splice(index, 1);
-    // update notes list Hooks
-    setUserNotesList(nextUserNotesList);
-    // save list data
-    saveNotesList(JSON.stringify(nextUserNotesList));
+
+
+    return {
+        userNotesList, updateUserNotesList,
+        showList, updateShowList,
+        searchWord, updateSearchWord,
+        changePinState, copyNote, eraseNote, addNote, editNote
+    }
 }
+/******************************************************************************
+ * end of noteControl function
+ ******************************************************************************/
+
+
+    
+
+
+
     
 export function saveNotesList(saveData: string) {
         
@@ -82,12 +165,12 @@ export function getNotesList() {
         return initData
     }else{
         
-        return  JSON.parse(jsonData) as  Array<noteParam>;
+        return  JSON.parse(jsonData) as  noteParam[];
     }
 };
 
 // Initial Template
-const initData: Array<noteParam> = [
+const initData: noteParam[] = [
     {
         id: 0,
         text: "Welcome to StickyNotes",
