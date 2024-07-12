@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { noteParam } from './../types';
-import { addNote } from '../function/noteControl';
+import { noteParam, updateNotesFunc, addFunc } from './../types';
 import './addNote.css'
 
-export const AddNoteContainer = ({userNotesList, setUserNotesList}:
-    {
-        userNotesList: Array<noteParam>,
-        setUserNotesList: React.Dispatch<React.SetStateAction<Array<noteParam>>>
-    }) => {
+export const AddNoteContainer = ({
+    userNotesList,
+    updateUserNotesList,
+    addNote
+}:{
+    userNotesList: Array<noteParam>,
+    updateUserNotesList: updateNotesFunc,
+    addNote: addFunc
+}) => {
 
     const [inputText, setInputText] = useState<string>("");
 
@@ -22,7 +25,8 @@ export const AddNoteContainer = ({userNotesList, setUserNotesList}:
           onClick={()=>{
             // If there is no input, nothing is done.
             if ('' === inputText) return;
-            addNote(inputText, userNotesList, setUserNotesList);
+            addNote(inputText, userNotesList, updateUserNotesList);
+            setInputText('');
         }}
           >+</button>
         </div>
