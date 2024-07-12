@@ -1,8 +1,29 @@
 
-header {
-    background-color: #202124;
+.headerContainer {
+  background-color: #202124;
+  display: flex;
+  flex-directionL row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 h1.headerTitle {
-    color: #FFF;
+  color: #FFF;
+  font-size: 48px;
+}
+
+.searchInput {
+  background: #525356;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  width: 400px;
+  height: 24px;
+  padding: 2px 10px;
+  font-size:16px;
+}
+
+.searchInput::placeholder {
+  color: #DDD;
+  font-size: 20px;
 }
