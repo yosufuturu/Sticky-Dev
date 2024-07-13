@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { noteParam, updateNotesFunc, addFunc } from './../types';
+import { noteParam, updateNotesFunc, addFunc } from './../types/types';
 import './addNote.css'
 
 export const AddNoteContainer = ({
