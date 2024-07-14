@@ -1,8 +1,15 @@
 
-header {
-    background-color: #202124;
+.headerContainer {
+  background-color: #202124;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 h1.headerTitle {
-    color: #FFF;
+  color: #FFF;
+  font-size: 48px;
 }
+
+

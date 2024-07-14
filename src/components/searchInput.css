@@ -1,0 +1,40 @@
+.searchInputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background: #525356;
+  height: 40px;
+  padding: 0 6px;
+}
+
+.searchInput {
+  background: #525356;
+  color: #FFF;
+  border: none;
+  border-radius: 4px;
+  width: 400px;
+  height: 30px;
+  padding: 2px 10px;
+  font-size:16px;
+}
+
+.searchInput::placeholder {
+  color: #DDD;
+  font-size: 20px;
+}
+
+.rstBtn {
+  width: 30px;
+  height: 30px;
+  background: none;
+  border: none;
+}
+
+.rstBtn:hover {
+  background-color: #393a3d;
+  transition: 0.5s;
+}
+
+.rstIcon {
+  width: 24px;
+}
