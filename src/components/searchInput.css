@@ -4,6 +4,7 @@
   align-items: center;
   background: #525356;
   height: 40px;
+  padding: 0 6px;
 }
 
 .searchInput {
@@ -30,8 +31,8 @@
 }
 
 .rstBtn:hover {
-  background-color: #525356;
-  transition: 0.3s;
+  background-color: #393a3d;
+  transition: 0.5s;
 }
 
 .rstIcon {
