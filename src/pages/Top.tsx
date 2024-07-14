@@ -6,10 +6,14 @@ import { noteControl } from '../function/noteControl'
 export const Top = () => {
 
         const {
-            userNotesList, updateUserNotesList,
-            showList, updateShowList,
-            searchWord, updateSearchWord,
-            changePinState, copyNote, eraseNote,
+            userNotesList,
+            updateUserNotesList,
+            showList,
+            searchWord,
+            updateSearchWord,
+            changePinState,
+            copyNote,
+            eraseNote,
             addNote,
             editNote
         } = noteControl();
@@ -24,8 +28,6 @@ export const Top = () => {
             userNotesList={userNotesList}
             updateUserNotesList={updateUserNotesList}
             showList={showList}
-            // updateShowList={updateShowList}
-            // searchWord={searchWord}
             changePinState={changePinState}
             copyNote={copyNote}
             eraseNote={eraseNote}
