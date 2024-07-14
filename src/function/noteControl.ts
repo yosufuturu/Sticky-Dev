@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { editFunc, noteParam, updateNotesFunc } from "../types";
+import { editFunc, noteParam, updateNotesFunc } from "../types/types";
+import { saveNotesList, getNotesList  } from "./store";
 
 export function noteControl () {
     
@@ -21,8 +22,10 @@ export function noteControl () {
         setSearchWord(word);
     }
 
+    // Initialize
     useEffect(()=>{
-        updateUserNotesList(initData);
+        // get note data
+        updateUserNotesList(getNotesList());
     },[]);
     
     useEffect(()=>{
@@ -42,8 +45,8 @@ export function noteControl () {
 
 /******************************************************************************
  * function: editNote
- * argument: text:string,
-             index:number,
+ * argument: text: string,
+             index: number,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
@@ -59,13 +62,16 @@ export function noteControl () {
 
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
-    }
+    } /***end of editNote function*******************************************/
+
+
+
 /******************************************************************************
- * end of editNote function
+ * function: copyNote
+ * argument: id: number,
+             userNotesList: noteParam[],
+             updateUserNotesList: updateNotesFunc
  ******************************************************************************/
-
-
-
     function copyNote(
         id: number,
         userNotesList: noteParam[],
@@ -74,9 +80,16 @@ export function noteControl () {
         const noteValue: noteParam | undefined = userNotesList.find((e)=>e.id===id);
         if (undefined === noteValue) return;
         addNote(noteValue.text, userNotesList, updateUserNotesList);
-    }
-/*** end of copyNote function ************************************************/
+    } /*** end of copyNote function ******************************************/
 
+
+
+/******************************************************************************
+ * function: changePinState
+ * argument: index: number,
+             userNotesList: noteParam[],
+             updateUserNotesList: updateNotesFunc
+ ******************************************************************************/
     function changePinState (
         id: number,
         userNotesList: noteParam[],
@@ -91,6 +104,14 @@ export function noteControl () {
         saveNotesList(JSON.stringify(nextUserNotesList));
     }  /*** end of changePinState function ***********************************/
 
+
+
+/******************************************************************************
+ * function: eraseNote
+ * argument: index: number,
+             userNotesList: noteParam[],
+             updateUserNotesList: updateNotesFunc
+ ******************************************************************************/
     function eraseNote(
         id: number,
         userNotesList: noteParam[],
@@ -108,6 +129,12 @@ export function noteControl () {
 
 
 
+/******************************************************************************
+ * function: addNote
+ * argument: value: string,
+             userNotesList: noteParam[],
+             updateUserNotesList: updateNotesFunc
+ ******************************************************************************/
     function addNote(
         value: string,
         userNotesList: noteParam[],
@@ -129,64 +156,14 @@ export function noteControl () {
 
     }  /*** end of addNote function ******************************************/
 
-
-
     return {
         userNotesList, updateUserNotesList,
         showList, updateShowList,
         searchWord, updateSearchWord,
         changePinState, copyNote, eraseNote, addNote, editNote
     }
-}
-/******************************************************************************
- * end of noteControl function
- ******************************************************************************/
-
-
-    
+} /*** end of noteControl function *******************************************/
 
 
 
-    
-export function saveNotesList(saveData: string) {
-        
-        // save list data to local storage
-        localStorage.setItem('key', saveData);
-}
-
-export function getNotesList() {
-    
-    // Get data from local storage
-    const jsonData = localStorage.getItem('key');
-    
-    // Get the retrieved data or a template if the data is null
-    if (null === jsonData || 'undefined' === jsonData) {
-        localStorage.setItem('key', JSON.stringify(initData))
-        return initData
-    }else{
-        
-        return  JSON.parse(jsonData) as  noteParam[];
-    }
-};
-
-// Initial Template
-const initData: noteParam[] = [
-    {
-        id: 0,
-        text: "Welcome to StickyNotes",
-        pinState: true,
-        date: new Date()
-    },
-    {
-        id: 1,
-        text: "The three buttons below allow pinning, copying, and deleting, respectively.",
-        pinState: false,
-        date: new Date()
-    },
-    {
-        id: 2,
-        text: "Shige-san is a genius",
-        pinState: false,
-        date: new Date()
-    },
-];
+/** end of file */
