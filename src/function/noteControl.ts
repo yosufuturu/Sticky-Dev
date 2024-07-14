@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { editFunc, noteParam, updateNotesFunc } from "../types/types";
-import { saveNotesList, getNotesList  } from "./store";
+import { saveNotesList, getNotesList, getNumber } from "./store";
 
 export function noteControl () {
     
@@ -28,47 +28,50 @@ export function noteControl () {
         updateUserNotesList(getNotesList());
     },[]);
     
+    // Redisplay when userNotesList is updated
     useEffect(()=>{
         updateShowList(userNotesList);
     },[userNotesList]);
+
+    // Display results when search terms are entered
+    useEffect(()=>{
+        if ('' !== searchWord) {
+            resultSearch(searchWord, userNotesList, updateShowList)
+        } else {
+            updateShowList(userNotesList);
+        }
+    },[searchWord]);
     
-    // useEffect(()=>{
-    //     console.log('test1');
-    //     console.log(userNotesList);
-    // },[userNotesList]);
-    
-    // useEffect(()=>{
-    //     console.log('test2');
-    //     console.log(showList);
-    // },[showList]);
+
 
 
 /******************************************************************************
- * function: editNote
- * argument: text: string,
+ * Function: editNote
+ * Argument: text: string,
              index: number,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
     const editNote: editFunc = (
         text:string,
-        index:number,
+        id:number,
         userNotesList: noteParam[],
         updateUserNotesList: updateNotesFunc
     ) =>{
+        const index: number = userNotesList.findIndex((e)=>e.id===id);
         const nextUserNotesList: noteParam[] = userNotesList.slice();
         nextUserNotesList[index].text = text;
         updateUserNotesList(nextUserNotesList);
 
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
-    } /***end of editNote function*******************************************/
+    } /***end of editNote Function*******************************************/
 
 
 
 /******************************************************************************
- * function: copyNote
- * argument: id: number,
+ * Function: copyNote
+ * Argument: id: number,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
@@ -80,13 +83,13 @@ export function noteControl () {
         const noteValue: noteParam | undefined = userNotesList.find((e)=>e.id===id);
         if (undefined === noteValue) return;
         addNote(noteValue.text, userNotesList, updateUserNotesList);
-    } /*** end of copyNote function ******************************************/
+    } /*** end of copyNote Function ******************************************/
 
 
 
 /******************************************************************************
- * function: changePinState
- * argument: index: number,
+ * Function: changePinState
+ * Argument: index: number,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
@@ -102,13 +105,13 @@ export function noteControl () {
 
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
-    }  /*** end of changePinState function ***********************************/
+    }  /*** end of changePinState Function ***********************************/
 
 
 
 /******************************************************************************
- * function: eraseNote
- * argument: index: number,
+ * Function: eraseNote
+ * Argument: index: number,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
@@ -130,8 +133,8 @@ export function noteControl () {
 
 
 /******************************************************************************
- * function: addNote
- * argument: value: string,
+ * Function: addNote
+ * Argument: value: string,
              userNotesList: noteParam[],
              updateUserNotesList: updateNotesFunc
  ******************************************************************************/
@@ -142,7 +145,7 @@ export function noteControl () {
     ){
         // create new note 
         const newNote :noteParam = {
-            id: userNotesList.length,
+            id: getNumber(),
             text: value,
             pinState: false,
             date: new Date()
@@ -154,15 +157,53 @@ export function noteControl () {
         // save list data
         saveNotesList(JSON.stringify(nextUserNotesList));
 
-    }  /*** end of addNote function ******************************************/
+    }  /*** end of addNote Function ******************************************/
+
+
+
+/******************************************************************************
+ * Function   : resultSearch
+ * Argument   : searchWord: string,
+                userNotesList: noteParam[],
+                updateUserNotesList: updateNotesFunc
+ * Description: Display results when search terms are entered
+ ******************************************************************************/
+    const resultSearch = (
+        searchWord: string,
+        userNotesList:noteParam[],
+        updateShowList: updateNotesFunc
+    )=>{
+
+        // cut out search words
+        const searchWords: Array<string> = searchWord.split(' ').filter(e=>e);
+    
+        let result: Array<noteParam> = [];
+    
+        for (let i:number=0; i<searchWords.length; i++){
+            const resultTemporary = (userNotesList.filter((note) => (
+                note.text.toLowerCase().includes(searchWords[i].toLowerCase())))
+            );
+            resultTemporary.forEach((e)=>result.push(e))
+        }
+    
+        // Remove duplicate search results
+        const ret = Array.from(new Set(result));
+    
+        // update show list
+        updateShowList(ret);
+        
+    } /*** end of resultSearch Function **************************************/
+
+
 
     return {
         userNotesList, updateUserNotesList,
         showList, updateShowList,
         searchWord, updateSearchWord,
-        changePinState, copyNote, eraseNote, addNote, editNote
+        changePinState, copyNote, eraseNote, addNote, editNote,
+        resultSearch
     }
-} /*** end of noteControl function *******************************************/
+} /*** end of noteControl Function *******************************************/
 
 
 
