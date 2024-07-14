@@ -1,4 +1,3 @@
-import React from 'react';
 import { SearchInput } from './searchInput';
 import './header.css'
 

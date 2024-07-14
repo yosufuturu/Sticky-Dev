@@ -1,4 +1,3 @@
-import React from "react";
 import { noteParam, updateNotesFunc, noteFunc } from './../types/types'
 import pinImg from './assets/pin.svg'
 import copyImg from './assets/copy.svg'

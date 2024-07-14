@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { noteParam, updateNotesFunc, addFunc } from './../types/types';
 import './addNote.css'
 

@@ -1,4 +1,3 @@
-import React from "react";
 import { noteParam, updateNotesFunc, editFunc, noteFunc } from "../types/types";
 import { PinBtn, CopyBtn, DustBtn } from './NoteButton'
 import './note.css';
