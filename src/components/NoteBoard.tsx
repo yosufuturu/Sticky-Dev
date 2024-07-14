@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { Note } from './Note';
 import { AddNoteContainer } from "./AddNote";
 import { noteParam, updateNotesFunc, editFunc, noteFunc, addFunc } from "../types/types";

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Header } from '../components/Header';
 import { NoteBoard } from '../components/NoteBoard';
 import { noteControl } from '../function/noteControl'

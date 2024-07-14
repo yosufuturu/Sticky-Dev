@@ -1,4 +1,3 @@
-import React from "react";
 import cross from './assets/crossMark.svg'
 import './searchInput.css'
 
