@@ -19,7 +19,7 @@ export const NoteBoard = ({
 }:{
     userNotesList: noteParam[],
     updateUserNotesList: updateNotesFunc,
-    showList:noteParam[],
+    showList: noteParam[],
     changePinState: noteFunc,
     copyNote: noteFunc,
     eraseNote: noteFunc,

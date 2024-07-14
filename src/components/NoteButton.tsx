@@ -1,6 +1,5 @@
 import React from "react";
 import { noteParam, updateNotesFunc, noteFunc } from './../types/types'
-// import { changePinState, copyNote, eraseNote } from '../function/noteControl'
 import pinImg from './assets/pin.svg'
 import copyImg from './assets/copy.svg'
 import dustImg from './assets/dustbox.svg'
