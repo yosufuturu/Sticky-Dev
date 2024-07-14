@@ -175,9 +175,9 @@ export function noteControl () {
     )=>{
 
         // cut out search words
-        const searchWords: Array<string> = searchWord.split(' ').filter(e=>e);
+        const searchWords: string[] = searchWord.split(' ').filter(e=>e);
     
-        let result: Array<noteParam> = [];
+        let result: noteParam[] = [];
     
         for (let i:number=0; i<searchWords.length; i++){
             const resultTemporary = (userNotesList.filter((note) => (

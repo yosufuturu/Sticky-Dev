@@ -7,7 +7,7 @@ export const AddNoteContainer = ({
     updateUserNotesList,
     addNote
 }:{
-    userNotesList: Array<noteParam>,
+    userNotesList: noteParam[],
     updateUserNotesList: updateNotesFunc,
     addNote: addFunc
 }) => {
