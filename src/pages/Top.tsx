@@ -17,7 +17,9 @@ export const Top = () => {
 
     return (
         <>
-        <Header updateSearchWord={updateSearchWord} />
+        <Header
+            searchWord={searchWord}
+            updateSearchWord={updateSearchWord} />
         <NoteBoard
             userNotesList={userNotesList}
             updateUserNotesList={updateUserNotesList}

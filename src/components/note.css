@@ -37,5 +37,4 @@ div.pin-false {
 }
 div.pin-true {
   order: 1;
-  transition: 0.5s;
 }
