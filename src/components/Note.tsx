@@ -28,7 +28,13 @@ export const Note = ({
         return(
         <div key={e.id} className={`note pin-${e.pinState}`}>
             <textarea className='noteArea' defaultValue={e.text}
-            // onChange={(event)=>{editNote(event.target.value, i, userNotesList, updateUserNotesList)}}
+            onChange={(event)=>{
+                editNote(
+                    event.target.value,
+                    e.id,
+                    userNotesList,
+                    updateUserNotesList
+                )}}
             ></textarea>
             <div className='noteButtonContainer'>
                 <PinBtn id={e.id}
