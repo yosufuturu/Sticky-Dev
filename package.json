@@ -12,7 +12,7 @@
     "rm": "rm -rf docs",
     "mv": "mv build docs",
     "git": "git add . && git push origin master",
-    "deploy": "npm run rm && npm run build && npm run mv && npm run git",
+    "deploy": "npm run rm && npm run build && npm run mv && npm run git"
   },
   "dependencies": {
     "react": "^18.3.1",
